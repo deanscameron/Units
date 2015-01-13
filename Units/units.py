@@ -1,38 +1,23 @@
-class Value(object):
-    def __init__(self, *args):
-        lead=args[0]
-        if type(lead)==type(self):
-            # Copy constructor
-            self.unit=dict(lead.unit)
-            self.value=lead.value
-        elif type(lead)==int:
-            self.from_constant(lead)
-        elif type(lead)==str:
-            self.from_symbol(*args)
-        elif type(lead)==dict:
-            self.from_dictionary(*args)
-        else:
-            self.from_lists(*args)
-    def from_constant(self, constant):
-        self.value=constant
-        self.unit={}
-    def from_symbol(self, symbol, value=1, power=1):
-        self.value=value
-        self.unit={symbol:power}
-    def from_dictionary(self, unit, value=1):
+class Unit(object):
+    def __init__(self, unit_type, unit_scale):
+	    # unit_type (eg. time) to define similar units
+		# unit_scale (eg. 60 for minute) to compute in similar units
+		# would allow second=Unit("time", 1)
+        self.unit_type=unit_type
+		self.unit_scale=unit_scale
+
+class Term(object):
+    def __init__(self, unit, coeff):
+        # just a number times a unit	
         self.unit=unit
-        self.value=value
-    def from_lists(self, symbols=[], powers=[], value=1):
-        self.value=value
-        self.unit={symbol: exponent for symbol,exponent
-                in zip(symbols, powers)}
-    def add(self, *others):
-        return Expression((self,)+others)
-    def multiply(self, *others):
-        result_unit=dict(self.unit)
-        result_coeff=self.value
-        # Convert arguments to Values first if they are
-        # constants or integers
+        self.coeff=coeff
+		
+    def add(self, other):
+        # adds Terms of the same unit_type   
+        return sum
+		
+    def multiply(self, other):
+        # multiplies Terms of the same unit_type 
         others=map(Value,others)
         for another in others:
             for symbol, exponent in another.unit.iteritems():
@@ -42,6 +27,10 @@ class Value(object):
                     result_unit[symbol]=another.unit[symbol]
             result_coeff*=another.value
         return Value(result_unit,result_coeff)
+		
+    def equality(self, other):
+	    # compares Terms of same unit_type
+		
     def __add__(self, other):
         return self.add(other)
     def __mul__(self, other):
