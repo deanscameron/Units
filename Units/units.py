@@ -15,7 +15,7 @@ class Term(object):
     def add(self, other):
         # adds Terms of the same unit_type
         if other.unit.unit_type = self.unit.unit_type:
-            new_coeff=self.coeff+other.coeff*(other.unit.unit_scale/self.unit.unit_scale)
+            new_coeff=self.coeff+other.coeff*float(other.unit.unit_scale/self.unit.unit_scale)
         else:
             raise TypeError("Cannot sum terms with different types of unit")		
         return Term(unit, new_coeff)
@@ -27,6 +27,14 @@ class Term(object):
 		
     def equality(self, other):
 	    # compares Terms of same unit_type
+		if other.unit.unit_type != self.unit.unit_type:
+            raise TypeError("Terms with different unit types cannot be equal")
+        elif other.coeff*other.unit.unit_scale = self.coeff*self.unit.unit_scale:
+            return True
+        else:
+            return False	
+			
+		
 		
     def __add__(self, other):
         return self.add(other)
