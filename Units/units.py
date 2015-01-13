@@ -13,8 +13,12 @@ class Term(object):
         self.coeff=coeff
 		
     def add(self, other):
-        # adds Terms of the same unit_type   
-        return sum
+        # adds Terms of the same unit_type
+        if other.unit.unit_type = self.unit.unit_type:
+            new_coeff=self.coeff+other.coeff*(other.unit.unit_scale/self.unit.unit_scale)
+        else:
+            raise TypeError("Cannot sum terms with different types of unit")		
+        return Term(unit, new_coeff)
 		
     def multiply(self, other):
         # multiplies Terms of the same unit_type 
