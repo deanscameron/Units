@@ -34,7 +34,12 @@ class Term(object):
         else:
             return False	
 			
-		
+    def to_unit(self, unit):
+        if self.unit.unit_type != unit.unit_type
+            raise TypeError("Terms cannot be converted to units of different type")
+        else:
+            new_coeff=self.coeff*float(self.unit.unit_scale/unit.unit_scale)
+        return Term(unit, new_coeff)
 		
     def __add__(self, other):
         return self.add(other)
