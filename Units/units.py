@@ -20,17 +20,10 @@ class Term(object):
             raise TypeError("Cannot sum terms with different types of unit")		
         return Term(unit, new_coeff)
 		
-    def multiply(self, other):
-        # multiplies Terms of the same unit_type 
-        others=map(Value,others)
-        for another in others:
-            for symbol, exponent in another.unit.iteritems():
-                if symbol in result_unit:
-                    result_unit[symbol]+=another.unit[symbol]
-                else:
-                    result_unit[symbol]=another.unit[symbol]
-            result_coeff*=another.value
-        return Value(result_unit,result_coeff)
+    def multiply(self, constant):
+        # multiplies Terms by a constant
+		new_coeff=constant*self.coeff
+		return Term(unit, new_coeff)
 		
     def equality(self, other):
 	    # compares Terms of same unit_type
