@@ -24,7 +24,7 @@ class Term(object):
     def __add__(self, other):
         # adds Terms of the same unit_type
         if other.unit.unit_type == self.unit.unit_type:
-            new_coeff=self.coeff+other.coeff*float(other.unit.unit_scale/self.unit.unit_scale)
+            new_coeff=self.coeff+other.coeff*(other.unit.unit_scale/float(self.unit.unit_scale))
         else:
             raise TypeError("Cannot sum terms with different types of unit")		
         return Term(unit, new_coeff)
@@ -53,5 +53,5 @@ class Term(object):
         if self.unit.unit_type != unit.unit_type:
             raise TypeError("Terms cannot be converted to units of different type")
         else:
-            new_coeff=self.coeff*float(self.unit.unit_scale/unit.unit_scale)
+            new_coeff=self.coeff*(self.unit.unit_scale/float(unit.unit_scale))
         return Term(unit, new_coeff)
