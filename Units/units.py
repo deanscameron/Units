@@ -40,7 +40,7 @@ class Term(object):
         else:
             raise TypeError("Terms can only be multiplied by int or float")
 		
-    def equality(self, other):
+    def __eq__(self, other):
         # compares Terms of same unit_type
         if other.unit.unit_type != self.unit.unit_type:
             raise TypeError("Terms with different unit types cannot be equal")
