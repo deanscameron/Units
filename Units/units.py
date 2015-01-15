@@ -6,7 +6,7 @@ class Unit(object):
         self.unit_type=unit_type
         self.unit_scale=unit_scale
 		 
-    def multiply(self, constant):
+    def __rmul__(self, constant):
         # multiplies Units by a constant
         if type(constant) == int and type(self)==Unit:		
             return Term(self, constant)
@@ -21,7 +21,7 @@ class Term(object):
         self.unit=unit
         self.coeff=coeff
 		
-    def add(self, other):
+    def __add__(self, other):
         # adds Terms of the same unit_type
         if other.unit.unit_type == self.unit.unit_type:
             new_coeff=self.coeff+other.coeff*float(other.unit.unit_scale/self.unit.unit_scale)
@@ -29,7 +29,7 @@ class Term(object):
             raise TypeError("Cannot sum terms with different types of unit")		
         return Term(unit, new_coeff)
 		
-    def multiply(self, constant):
+    def __rmul__(self, constant):
         # multiplies Terms by a constant
         if type(constant) == int and type(self)==Unit:
             new_coeff=constant*self.coeff		
